@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ĐUỔI HÌNH KÌ DIỆU</title>
+    <script src="quizz.js"></script>
+    <script src="gamemanager.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<audio autoplay id="mp3">
+    <source src="sondmp/I-Do-911.mp3" type="audio/mpeg">
+</audio>
+
+<div id="background">
+    <div id="pisgues">
+        <div id="picter"></div>
+        <div id="suggest">
+            <button onclick="suggestions()" class="sugges">Suggestions</button>
+            <div id="fill"></div>
+            <input type="button" id="score" class="score" value="0"/>
+
+        </div>
+    </div>
+    <div id="question"></div>
+    <div id="answer">
+        <input type="text" id="text" class="tee"/>
+        <button onclick="checkanswer(); playsound()" class="tes"> Kiểm Tra</button>
+    </div>
+</div>
+<script>
+    let quizz1 = new Quizz("<img src=\"sondmp/quizz1.jpg\" height=\"375\" width=\"559\"/>", "Đây là gì?", "CÓ 6 TỪ VÀ 2 CHỮ CÁI A", ['tai họa', 'TAI HỌA', 'Tai họa', 'Tai Họa' ]);
+    let quizz2 = new Quizz("<img src=\"sondmp/quizz2.jpg\" height=\"375\" width=\"559\"/>", "Đây là ai?", "CÓ 5 TỪ VÀ 2 CHỮ A", ['O ba ma', 'O BA MA', 'o ba ma', 'O Ba Ma']);
+    let quizz3 = new Quizz("<img src=\"sondmp/quizz3.png\" height=\"375\" width=\"559\"/>", "Đây là gì?", "CÓ 5 TỪ VÀ 2 CHỮ A", ['ca dao', 'CA DAO', 'Ca dao', 'Ca Dao']);
+    let quizz4 = new Quizz("<img src=\"sondmp/quizz4.png\" height=\"375\" width=\"559\"/>", "Đây là gì?", "CÓ 8 TỪ VÀ 1 CHỮ C", ['KHẨU CUNG', 'Khẩu cung', 'khẩu cung', 'Khẩu Cung']);
+    let gamemangager = new Gamemanager(2);
+    gamemangager.addQuizz(quizz1);
+    gamemangager.addQuizz(quizz2);
+    gamemangager.addQuizz(quizz3);
+    gamemangager.addQuizz(quizz4);
+    function displayQuiz(index) {
+        document.getElementById('picter').innerHTML = gamemangager.quizzs[index].img;
+        document.getElementById('question').innerHTML = gamemangager.quizzs[index].question;
+    }
+    function suggestions() {
+        document.getElementById('fill').innerHTML = gamemangager.checkfill();
+    }
+    function checkanswer() {
+        let answer = document.getElementById('text').value;
+        let score = document.getElementById('score').value;
+        gamemangager.check(answer);
+        score++
+        document.getElementById('score').value = score;
+        document.getElementById('text').value = "";
+
+    }
+    function nextquizz() {
+        gamemangager.nextQuizz();
+        displayQuiz(gamemangager.current);
+    }
+    function playsound() {
+        let sound = document.getElementById("mp3");
+        sound.play();
+}
+    displayQuiz(0)
+</script>
+</body>
+</html>
